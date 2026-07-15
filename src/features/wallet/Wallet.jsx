@@ -3,6 +3,7 @@ import AuthNavbar from "../../components/AuthNavbar"
 import Footer from "../../components/Footer"
 
 const WalletPage = ({ user }) => {
+    
     const [showTopUp, setShowTopUp]       = useState(false)
     const [showVerify, setShowVerify]     = useState(true)
     const [verified, setVerified]         = useState(false)

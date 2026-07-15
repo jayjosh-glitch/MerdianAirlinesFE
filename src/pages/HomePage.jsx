@@ -3,15 +3,29 @@ import Footer from "../components/Footer";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import AuthNavbar from "../components/AuthNavbar"
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
 
-  const {currentuser} = useContext(AuthContext);
+  const { currentuser } = useContext(AuthContext);
+
+  const navigate = useNavigate()
+
+  const handlesearch = () => {
+    navigate('/search')
+  }
+
+  const handleroutes = () => {
+    navigate('/login')
+  }
+  const handleaccount = () => {
+    navigate('/register')
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      { currentuser ? <AuthNavbar user={currentuser} /> : <Navbar/>}
+      {currentuser ? <AuthNavbar user={currentuser} /> : <Navbar />}
 
       {/* ── HERO ───────────────────────────────────────────── */}
       <section className="bg-white pt-16 pb-0 flex flex-col items-center text-center px-6">
@@ -31,15 +45,15 @@ const HomePage = () => {
         </p>
 
         <div className="flex gap-3 mb-10">
-          <button className="bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+          <button className="bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors flex items-center gap-2" onClick={handlesearch}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
             </svg>
             Search flights
           </button>
-          <button className="bg-white hover:bg-gray-50 text-[#0F2C5C] text-sm font-medium px-6 py-2.5 rounded-lg border-2 border-[#0F2C5C] transition-colors flex items-center gap-2">
+          <button className="bg-white hover:bg-gray-50 text-[#0F2C5C] text-sm font-medium px-6 py-2.5 rounded-lg border-2 border-[#0F2C5C] transition-colors flex items-center gap-2" onClick={handleroutes}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
             </svg>
             Explore routes
           </button>
@@ -61,9 +75,8 @@ const HomePage = () => {
             {["One way", "Round trip", "Multi-city"].map((tab, i) => (
               <button
                 key={tab}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  i === 0 ? "bg-[#0F2C5C] text-white" : "text-gray-500 hover:text-[#0F2C5C]"
-                }`}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${i === 0 ? "bg-[#0F2C5C] text-white" : "text-gray-500 hover:text-[#0F2C5C]"
+                  }`}
               >
                 {tab}
               </button>
@@ -92,9 +105,9 @@ const HomePage = () => {
                 <option>Business</option>
               </select>
             </div>
-            <button className="bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium px-5 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 h-[38px]">
+            <button className="bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium px-5 py-2 rounded-lg transition-colors flex items-center justify-center gap-2 h-[38px]" onClick={handlesearch}>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
               </svg>
               Search
             </button>
@@ -191,18 +204,18 @@ const HomePage = () => {
         <h2 className="text-2xl font-medium text-gray-900 mb-2">Ready to fly with Meridian?</h2>
         <p className="text-gray-400 text-sm mb-6">Create your account in seconds and book your first flight today.</p>
         <div className="flex gap-3 justify-center">
-          <button className="bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+          <button className="bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium px-6 py-2.5 rounded-lg transition-colors flex items-center gap-2" onClick={handleaccount}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
             </svg>
             Create account
           </button>
-          <button className="bg-white hover:bg-gray-50 text-[#0F2C5C] text-sm font-medium px-6 py-2.5 rounded-lg border-2 border-[#0F2C5C] transition-colors flex items-center gap-2">
+          <button className="bg-white hover:bg-gray-50 text-[#0F2C5C] text-sm font-medium px-6 py-2.5 rounded-lg border-2 border-[#0F2C5C] transition-colors flex items-center gap-2" onClick={handlesearch}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+              <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
             </svg>
             Search flights
           </button>

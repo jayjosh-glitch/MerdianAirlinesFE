@@ -7,9 +7,11 @@ const Navbar = () => {
     const location = useLocation()
 
     const navLinks = [
-        { label: "Flights", path: "/" },
+        { label: "Home", path: "/" },
         { label: "About", path: "/about" },
         { label: "Contact", path: "/contact" },
+        { label: "Flights", path: "/search" },
+        
     ]
 
     return (

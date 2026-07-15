@@ -11,7 +11,7 @@ const AuthNavbar = ({ user }) => {
     const [menuOpen, setMenuOpen] = useState(false)
     const {logout} = useContext(AuthContext)
     const navLinks = [
-        { label: "Search flights", path: "/searchflights" },
+        { label: "Search flights", path: "/search" },
         { label: "My bookings",    path: "/bookings" },
         { label: "Passengers",     path: "/passengers" },
         { label: "Wallet",         path: "/wallet" },

@@ -8,17 +8,24 @@ const api = axios.create({
   },
 });
 
-axios.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;},
+        const token = localStorage.getItem("token")
+
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+            console.log("header set:", config.headers.Authorization)
+        } else {
+            console.log("NO TOKEN — header not set")
+        }
+
+        return config
+    },
     (error) => {
-    return Promise.reject(error);
-  }
+        return Promise.reject(error)
+    }
 )
+
 
 api.interceptors.response.use(
   (response) => {
@@ -34,7 +41,7 @@ api.interceptors.response.use(
                 // Clear storage and redirect to login
                 localStorage.removeItem("token");
                 localStorage.removeItem("user");
-                window.location.href = "/login";
+                // window.location.href = "/login";
                 break;
  
             case 403:

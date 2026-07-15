@@ -17,11 +17,10 @@ const AuthProvider = ({ children }) => {
         if (user) {
             setisloggedin(true)
             setcurerntuser(user)
-            console.log(user.userId)
-            console.log(user.token)
             localStorage.setItem('token', user.token)
             localStorage.setItem('isloggedin', 'true')
             localStorage.setItem('currentuser', JSON.stringify(user))
+
         } else if (!user || user === null) {
             localStorage.setItem('isloggedin', 'false')
         }

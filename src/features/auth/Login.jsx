@@ -8,11 +8,11 @@ import { useAppUser } from "../../hooks/useAppUser"
 import ErrorMessage from "../../components/ErrorMessage"
 import AuthNavbar from "../../components/AuthNavbar"
 import { useNavigate } from "react-router-dom"
+
 const Login = () => {
 
     const { login, currentuser } = useContext(AuthContext)
     const navigate = useNavigate()
-    console.log(currentuser)
     const { Login, isLoading, error } = useAppUser()
     const [form, setForm] = useState({
         email: "",
@@ -33,7 +33,7 @@ const Login = () => {
         const result = await Login(form)
         if (result) {
             login(result)
-            console.log(result)
+
             navigate("/")
         }
 

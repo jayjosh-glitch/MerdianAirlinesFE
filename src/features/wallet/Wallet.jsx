@@ -1,6 +1,7 @@
 import { useState } from "react"
 import AuthNavbar from "../../components/AuthNavbar"
 import Footer from "../../components/Footer"
+import useWallet from "../../hooks/useWallet"
 
 const WalletPage = ({ user }) => {
     
@@ -9,12 +10,10 @@ const WalletPage = ({ user }) => {
     const [verified, setVerified]         = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [activeTab, setActiveTab]       = useState("All")
+    const {Getmywallet} = useWallet
 
-    const mockWallet = {
-        reference: "TON-WL-003",
-        balance: 900880,
-        updatedAt: "2026-07-08"
-    }
+    const Wallet =  Getmywallet
+    console.log(Getmywallet)
 
     const mockTransactions = [
         { id: 1, type: "Credit", reason: "TopUp",          amount: 1000000, before: 0,       after: 1000000, time: "2026-07-01T10:00:00Z", ref: null },
@@ -102,7 +101,7 @@ const WalletPage = ({ user }) => {
                             <div className="flex items-start justify-between mb-8">
                                 <div>
                                     <p className="text-white/60 text-xs font-medium uppercase tracking-wide mb-1">Meridian Wallet</p>
-                                    <p className="text-white font-medium text-sm">{mockWallet.reference}</p>
+                                    <p className="text-white font-medium text-sm">{Wallet.WalletReference}</p>
                                 </div>
                                 <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -114,7 +113,7 @@ const WalletPage = ({ user }) => {
                                 <div>
                                     <p className="text-white/60 text-xs mb-1">Available balance</p>
                                     <p className="text-white text-3xl font-medium">
-                                        ₹{mockWallet.balance.toLocaleString()}
+                                        ₹{Wallet.balance.toLocaleString()}
                                     </p>
                                 </div>
                                 <button
@@ -265,6 +264,8 @@ const WalletPage = ({ user }) => {
 
             <Footer />
         </div>
+
+        
     )
 }
 

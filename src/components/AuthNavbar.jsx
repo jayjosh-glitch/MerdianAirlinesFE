@@ -15,6 +15,7 @@ const AuthNavbar = ({ user }) => {
         { label: "My bookings",    path: "/bookings" },
         { label: "Passengers",     path: "/passengers" },
         { label: "Wallet",         path: "/wallet" },
+        { label: "Contact",         path: "/contact" },
     ]
 
     const handleLogout = () => {

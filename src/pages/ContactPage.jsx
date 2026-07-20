@@ -1,20 +1,27 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AuthContext from "../context/AuthContext";
+import AuthNavbar from "../components/AuthNavbar";
+import useSupport from "../hooks/useSupport";
 
 const INITIAL_FORM = {
   issueType: "",
-  subject: "",
-  description: "",
-  email: "",
   bookingRef: "",
+  description: "",
+  subject: "",
+  email: "",
+  requestid: 0,
 };
 
 const ContactPage = () => {
-  const [showModal, setShowModal]   = useState(false);
-  const [submitted, setSubmitted]   = useState(false);
-  const [ticketRef, setTicketRef]   = useState("");
-  const [form, setForm]             = useState(INITIAL_FORM);
+
+  const [showModal, setShowModal] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [ticketRef, setTicketRef] = useState("");
+  const [form, setForm] = useState(INITIAL_FORM);
+  const { currentuser } = useContext(AuthContext)
+  const { AddRequest } = useSupport()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,10 +33,22 @@ const ContactPage = () => {
     setShowModal(true);
   };
 
-  const handleConfirm = () => {
-    const ref = "MR-SUP-" + (Math.floor(Math.random() * 90000) + 10000);
-    setTicketRef(ref);
-    setSubmitted(true);
+  const handleConfirm = async () => {
+    // const ref = "MR-SUP-" + (Math.floor(Math.random() * 90000) + 10000);
+    console.log(currentuser)
+    if (currentuser == null) {
+      alert("Please login First")
+      console.log("I am in if condition")
+    } else {
+      console.log("I am in else condition")
+      const result = await AddRequest(form);
+      console.log(result.requestNumber)
+      setTicketRef(result.requestNumber);
+      setSubmitted(true);
+      // alert(result)
+    }
+     console.log("I am in out condition")
+    
   };
 
   const handleClose = () => {
@@ -42,7 +61,7 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-white font-sans">
 
-      <Navbar />
+      {currentuser ? <AuthNavbar user={currentuser} /> : <Navbar />}
 
       {/* ── HERO ───────────────────────────────────────────── */}
       <section className="bg-[#0F2C5C] py-16 px-6 text-center">
@@ -198,7 +217,7 @@ const ContactPage = () => {
                   className="w-full bg-[#0F2C5C] hover:bg-[#1A3F7A] text-white text-sm font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
                   </svg>
                   Submit request
                 </button>
@@ -229,7 +248,7 @@ const ContactPage = () => {
                     aria-label="Close"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                      <path d="M18 6 6 18M6 6l12 12"/>
+                      <path d="M18 6 6 18M6 6l12 12" />
                     </svg>
                   </button>
                 </div>
@@ -274,7 +293,7 @@ const ContactPage = () => {
               <div className="text-center py-4">
                 <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg className="w-7 h-7 text-green-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M20 6 9 17l-5-5"/>
+                    <path d="M20 6 9 17l-5-5" />
                   </svg>
                 </div>
                 <h3 className="text-base font-medium text-gray-900 mb-2">Request submitted</h3>

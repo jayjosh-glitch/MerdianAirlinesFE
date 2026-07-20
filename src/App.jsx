@@ -4,15 +4,15 @@ import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
-// import FlightsPage from "./features/flights/Flights";
 import PassengersList from "./features/passengers/PassengersList";
 import Result from "./features/flights/Result";
-// import WalletPage from "./features/wallet/Wallet";
-//  import BookingsPage from "./features/booking/Bookings";
+import WalletPage from "./features/wallet/Wallet";
 import AddPassenger from "./features/passengers/AddPassenger";
 import BookingHistory from "./features/booking/BookingHistory";
 import Search from "./features/flights/Search";
 import BookingForm from "./features/booking/BookingForm";
+import Payment from "./features/payment/Payment";
+import BookingSummary from "./features/booking/BookingSummary";
 
 function App() {
   return (
@@ -27,9 +27,11 @@ function App() {
         <Route path="/passengers" element={<PassengersList />} />
         <Route path="/addpaseenger" element={<AddPassenger />} />
         <Route path="/search" element={<Search />} />
-        {/* <Route path="/wallet" element = {<WalletPage/>}/> */}
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/wallet" element = {<WalletPage/>}/>
         <Route path="/bookings" element={<BookingHistory />} />
         <Route path="/bookingform" element={<BookingForm/>}/>
+        <Route path="/bookingsummary" element={<BookingSummary/>}/>
       </Routes>
     </BrowserRouter>
   );

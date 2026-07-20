@@ -3,14 +3,18 @@ import AuthContext from "../../context/AuthContext"
 import AuthNavbar from "../../components/AuthNavbar"
 import Navbar from "../../components/Navbar"
 import { useFlight } from "../../hooks/useFlight"
-import { useNavigate } from "react-router-dom"
+import PassModel from "../../components/PassModel"
+import { useDispatch } from "react-redux"
+import { selectFlight } from "../../redux/FlightSlice"
+
 
 const Search = () => {
 
     const { currentuser } = useContext(AuthContext);
     const { GetFlights } = useFlight()
     const [flightList, setflightList] = useState([])
-    const navigate = useNavigate()
+    const [addpass, setaddpass] = useState(null)
+
     const [searchdata, setsearchdata] = useState({
         source: "",
         destination: "",
@@ -21,6 +25,7 @@ const Search = () => {
         flightclass: "Economy"
     });
 
+    const dispatch = useDispatch();
 
     const handlechange = (e) => {
         const { name, value } = e.target;
@@ -33,14 +38,16 @@ const Search = () => {
 
     const handlesearch = async () => {
         console.log(searchdata)
-        const result = await GetFlights(searchdata.source, searchdata.destination, searchdata.departuredate,  searchdata.isroundtrip,searchdata.isonewaytrip, searchdata.flightclass)
+        const result = await GetFlights(searchdata.source, searchdata.destination, searchdata.departuredate, searchdata.isroundtrip, searchdata.isonewaytrip, searchdata.flightclass)
         setflightList(result)
         console.log(result)
     }
 
-    const handleselectedflight = () => {
-         navigate('/bookingform')
+    const handleselectedflight = (flight) => {
+        dispatch(selectFlight(flight))
+        setaddpass(true)
     }
+
     return (
         <>
             {currentuser ?
@@ -252,7 +259,7 @@ const Search = () => {
                                     </option>
 
                                     <option>
-                                       Business
+                                        Business
                                     </option>
 
                                 </select>
@@ -406,7 +413,7 @@ const Search = () => {
 
                                         <button
                                             className="mt-4 bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition"
-                                            onClick={handleselectedflight}>
+                                            onClick={() => { handleselectedflight(flight) }}>
                                             Select
                                         </button>
 
@@ -417,6 +424,8 @@ const Search = () => {
                         ))}
                     </div>
                 </section>
+
+                {addpass && <PassModel setaddpass={setaddpass} />}
             </main>
         </>
     );

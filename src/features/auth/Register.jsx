@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import Navbar from "../../components/Navbar"
 import Footer from "../../components/Footer"
 import { useAppUser } from "../../hooks/useAppUser"
+import { useNavigate } from "react-router-dom"
 
 const Register = () => {
  
@@ -20,6 +21,7 @@ const Register = () => {
 
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
@@ -27,10 +29,10 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // TODO: call POST /api/v1/auth/register
         var result = await Register(form);
         if(result){
             console.log(result)
+            navigate("/login")
         }
         console.log({
             ...form,
